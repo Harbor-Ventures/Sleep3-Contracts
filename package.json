@@ -1,0 +1,50 @@
+{
+	"name": "sleep3",
+	"version": "1.1.2",
+	"description": "",
+	"main": "types/index.ts",
+	"peerDependencies": {
+		"@ethersproject/abi": "^5.5.0",
+		"@ethersproject/providers": "^5.5.3",
+		"ethers": "^5.5.4",
+		"typescript": "^4.5.5"
+	},
+	"devDependencies": {
+		"@nomiclabs/hardhat-ethers": "^2.0.5",
+		"@nomiclabs/hardhat-etherscan": "^3.0.3",
+		"@nomiclabs/hardhat-truffle5": "^2.0.3",
+		"@nomiclabs/hardhat-waffle": "^2.0.3",
+		"@nomiclabs/hardhat-web3": "^2.0.0",
+		"@openzeppelin/contracts": "^4.4.0",
+		"@truffle/hdwallet-provider": "^2.0.0",
+		"@typechain/ethers-v5": "^9.0.0",
+		"@typechain/hardhat": "^4.0.0",
+		"@typechain/truffle-v5": "^7.0.0",
+		"@typechain/web3-v1": "^6.0.0",
+		"bignumber.js": "^9.0.2",
+		"chai": "^4.3.6",
+		"dotenv": "^16.0.1",
+		"ethereum-waffle": "^3.4.0",
+		"ethers": "^5.6.1",
+		"hardhat": "^2.8.3",
+		"hardhat-contract-sizer": "^2.5.0",
+		"hardhat-gas-reporter": "^1.0.8",
+		"solc-0.8": "npm:solc@^0.8.12",
+		"solidity-docgen": "^0.5.16",
+		"truffle": "^5.4.23",
+		"typechain": "^8.0.0",
+		"web3": "^1.7.0"
+	},
+	"scripts": {
+		"init-secret": "touch .secret && touch .infuraid && touch .etherscan",
+		"build": "hardhat compile",
+		"test": "hardhat test"
+	},
+	"author": "",
+	"license": "ISC",
+	"engines": {
+		"npm": "please-use-yarn",
+		"yarn": ">= 1.22.0",
+		"node": ">= 16.0.0"
+	}
+}

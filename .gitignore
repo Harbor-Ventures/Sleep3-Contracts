@@ -1,0 +1,10 @@
+node_modules/
+build/
+.env
+artifacts/
+cache/
+
+.accounts
+.etherscan
+.infuraid
+.secret
