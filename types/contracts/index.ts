@@ -3,5 +3,6 @@
 /* eslint-disable */
 import type * as nftCollectionSol from "./NFTCollection.sol";
 export type { nftCollectionSol };
+export type { AlarmClock } from "./AlarmClock";
 export type { SLEPToken } from "./SLEPToken";
 export type { StakingToken } from "./StakingToken";

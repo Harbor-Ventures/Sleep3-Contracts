@@ -15,8 +15,14 @@ contract AlarmClock is Ownable {
         uint256 endAt;
     }
 
+    mapping(address => uint256) internal sleepiness;
+
     address private slepTokenAddress;
     uint256 private rewardAmount = 100;
+
+    bool sleepinessEnabled = true;
+    uint256 sleepinessTime = 60*60*12; // Half a day
+    uint256 sleepinessResetCost = 100 * 10 ** 18; // 100 SLEP
 
     bool thresholdEnabled = false;
     uint256 threshold = 60*60; // 1 hour
@@ -27,6 +33,8 @@ contract AlarmClock is Ownable {
         require(alarms[msg.sender].active == false, "You already have an alarm set");
         require(block.timestamp < endAt, "You cannot set alarm in the past");
         require(tokenAmount > 0, "Token amount must be greater than 0");
+
+        require(sleepiness[msg.sender] + sleepinessTime < block.timestamp, "Not enough sleepiness!");
 
         require(IERC20(slepTokenAddress).transferFrom(msg.sender, address(this), tokenAmount), "Cannot Transfer Token from User");
 
@@ -42,6 +50,8 @@ contract AlarmClock is Ownable {
         );
 
         alarms[msg.sender] = alarm;
+
+        sleepiness[msg.sender] = endAt;
     }
 
     function wakeUp() public {
@@ -54,6 +64,8 @@ contract AlarmClock is Ownable {
 
         alarms[msg.sender].active = false;
         delete alarms[msg.sender];
+
+        sleepiness[msg.sender] = block.timestamp;
     }
 
     function getAlarm() public view returns (Alarm memory) {
@@ -74,6 +86,12 @@ contract AlarmClock is Ownable {
 
     function setSlepTokenAddress(address tokenAddress) public onlyOwner {
         slepTokenAddress = tokenAddress;
+    }
+
+    function resetSleepiness() public {
+        require(IERC20(slepTokenAddress).transferFrom(msg.sender, owner(), sleepinessResetCost), "Could not pay to reset sleepiness");
+        
+        sleepiness[msg.sender] = 0;
     }
 
     function rescue(uint256 amount) public onlyOwner {
