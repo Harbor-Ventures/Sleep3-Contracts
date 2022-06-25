@@ -88,9 +88,17 @@ contract AlarmClock is Ownable {
         slepTokenAddress = tokenAddress;
     }
 
+    function setSleepinessTime(uint256 _time) public onlyOwner {
+        sleepinessTime = _time;
+    }
+
+    function setSleepinessCost(uint256 _cost) public onlyOwner {
+        sleepinessResetCost = _cost;
+    }
+
     function resetSleepiness() public {
         require(IERC20(slepTokenAddress).transferFrom(msg.sender, owner(), sleepinessResetCost), "Could not pay to reset sleepiness");
-        
+
         sleepiness[msg.sender] = 0;
     }
 
