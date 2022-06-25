@@ -29,6 +29,10 @@ contract AlarmClock is Ownable {
 
     mapping(address => Alarm) internal alarms;
 
+    constructor(address _tokenAddress) {
+        slepTokenAddress = _tokenAddress;
+    }
+
     function setAlarm (uint256 tokenAmount, uint256 nftId, uint256 endAt) public {
         require(alarms[msg.sender].active == false, "You already have an alarm set");
         require(block.timestamp < endAt, "You cannot set alarm in the past");
@@ -54,9 +58,9 @@ contract AlarmClock is Ownable {
         sleepiness[msg.sender] = endAt;
     }
 
-    function wakeUp() public {
+    function stop() public {
         require(alarms[msg.sender].active == true, "You do not have an alarm set");
-        require(thresholdEnabled == true && block.timestamp >= alarms[msg.sender].endAt - threshold, "You cannot wake up more than one hour before the alarm");
+        require(thresholdEnabled == false || block.timestamp >= alarms[msg.sender].endAt - threshold, "You cannot wake up more than one hour before the alarm");
 
         if (alarms[msg.sender].endAt > block.timestamp) {
             require(IERC20(slepTokenAddress).transfer(msg.sender, alarms[msg.sender].tokensOffered + alarms[msg.sender].rewardAmount), "Cannot Transfer Token from Alarm Clock");

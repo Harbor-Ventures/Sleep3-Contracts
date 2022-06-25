@@ -58,6 +58,14 @@ export interface AlarmClock extends BaseContract {
       _rewardAmount: number | string | BN
     ): NonPayableTransactionObject<void>;
 
+    setSleepinessCost(
+      _cost: number | string | BN
+    ): NonPayableTransactionObject<void>;
+
+    setSleepinessTime(
+      _time: number | string | BN
+    ): NonPayableTransactionObject<void>;
+
     setSlepTokenAddress(
       tokenAddress: string
     ): NonPayableTransactionObject<void>;
@@ -70,9 +78,9 @@ export interface AlarmClock extends BaseContract {
       _thresholdEnabled: boolean
     ): NonPayableTransactionObject<void>;
 
-    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
+    stop(): NonPayableTransactionObject<void>;
 
-    wakeUp(): NonPayableTransactionObject<void>;
+    transferOwnership(newOwner: string): NonPayableTransactionObject<void>;
   };
   events: {
     OwnershipTransferred(cb?: Callback<OwnershipTransferred>): EventEmitter;

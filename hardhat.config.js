@@ -56,6 +56,19 @@ task("mint-nft", "Deploys the SLEP NFT Collection to the blockchain")
   console.log(`NFT Token Created!`);
 })
 
+task("deploy-alarm", "Deploys the SLEP Alarm Clock to the blockchain")
+.addParam("slep", "SLEP token Address")
+.setAction(async (params) => {
+  console.log("Deploying Alarm Clock...");
+
+  const signer = await ethers.getSigner(0);
+
+  const Clock = await ethers.getContractFactory("AlarmClock");
+  const clock = await Clock.deploy(params.slep);
+
+  console.log(`Alarm Clock Deployed at ${clock.address}`);
+})
+
 
 module.exports = {
   solidity: {

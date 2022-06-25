@@ -9,7 +9,7 @@ const tomorrow = (now = Date.now()) => Math.floor(now / 1000 + 86400)
 
 describe("SLEP Token", () => 
 {
-    it("should output an OfferAccepted event with the amount of tokens pucrhased for that bid", async () =>
+    it("should mint tokens on creation", async () =>
     {
         const [owner] = await ethers.getSigners()
 
